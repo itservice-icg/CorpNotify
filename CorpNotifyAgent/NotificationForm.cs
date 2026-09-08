@@ -155,7 +155,7 @@ internal sealed class NotificationForm : Form
 
         _sidebarList = new FlowLayoutPanel { Dock = DockStyle.Fill, FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = true, Padding = new Padding(16, 12, 16, 12), BackColor = Color.White };
         var recentCutoff = DateTimeOffset.Now.AddDays(-7);
-        foreach (var (notification, index) in notifications.Select((n, i) => (n, i)).Where(x => !x.n.StartAt.HasValue || x.n.StartAt.Value >= recentCutoff).OrderByDescending(x => x.n.StartAt ?? DateTimeOffset.MinValue))
+        foreach (var (notification, index) in notifications.Select((n, i) => (n, i)).Where(x => !x.n.StartAt.HasValue || x.n.StartAt.Value >= recentCutoff || x.n.WasOpened).OrderByDescending(x => x.n.StartAt ?? DateTimeOffset.MinValue))
         {
             _sidebarNotificationIndices.Add(index);
             var item = new Button { Width = 244, Height = 72, TextAlign = ContentAlignment.MiddleLeft, FlatStyle = FlatStyle.Flat, BackColor = _sidebarNotificationIndices.Count == 1 ? Color.FromArgb(239, 246, 255) : Color.White, ForeColor = Ink, Font = new Font("Segoe UI", 10, FontStyle.Bold), Text = $"{HeaderText(notification.Type)}\r\n{notification.Title}", Tag = index, Padding = new Padding(12, 8, 8, 8), AccessibleName = $"Select notification {index + 1}" };
@@ -507,3 +507,5 @@ internal sealed class NotificationForm : Form
         _ => "INFO"
     };
 }
+
+

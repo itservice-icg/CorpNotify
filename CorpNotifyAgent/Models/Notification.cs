@@ -25,6 +25,9 @@ internal sealed class Notification
     [JsonPropertyName("start_at")]
     public DateTimeOffset? StartAt { get; init; }
 
+    [JsonPropertyName("was_opened")]
+    public bool WasOpened { get; init; }
+
     [JsonPropertyName("url")]
     public string? Url { get; init; }
 
@@ -36,3 +39,5 @@ internal sealed class Notification
 
     public bool IsPolicy => string.Equals(Type, "policy", StringComparison.OrdinalIgnoreCase);
 }
+
+

@@ -45,6 +45,7 @@ class NotificationApiController extends Controller
                     ? base64_encode(Storage::disk('public')->get($notification->image_path)) : null,
                 'type' => $notification->type,
                 'start_at' => $notification->start_at?->toIso8601String(),
+                'was_opened' => (bool) $assignment?->pivot?->opened_at,
                 'url' => $notification->url,
                 'policy_body' => $notification->isPolicy() ? $notification->policy_body : null,
                 'questions' => $notification->isPolicy()
@@ -287,3 +288,4 @@ class NotificationApiController extends Controller
                 ->where('target_type', 'user')->where('target_value', $device->username));
     }
 }
+
