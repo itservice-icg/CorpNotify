@@ -307,8 +307,7 @@ internal sealed class NotificationForm : Form
             Dock = DockStyle.Top,
             FlowDirection = FlowDirection.RightToLeft,
             WrapContents = false,
-            Margin = new Padding(0)
-        };
+            Margin = new Padding(0), Visible = false, Height = 0};
 
         if (true)
         {
@@ -507,5 +506,10 @@ internal sealed class NotificationForm : Form
         _ => "INFO"
     };
 }
+
+
+
+
+
 
 
