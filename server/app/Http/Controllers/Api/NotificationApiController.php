@@ -35,6 +35,7 @@ class NotificationApiController extends Controller
 
         $payload = $notifications->map(function (Notification $notification) use ($device) {
             $notification->devices()->syncWithoutDetaching([$device->id]);
+            $assignment = $notification->devices()->whereKey($device->id)->first();
 
             return [
                 'id' => $notification->id,
@@ -288,4 +289,5 @@ class NotificationApiController extends Controller
                 ->where('target_type', 'user')->where('target_value', $device->username));
     }
 }
+
 
