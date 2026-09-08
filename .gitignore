@@ -1,0 +1,32 @@
+# .NET build output
+**/bin/
+**/obj/
+publish/
+
+# Laravel runtime and local configuration
+server/.env
+server/storage/framework/cache/data/
+server/storage/framework/sessions/
+server/storage/framework/testing/
+server/storage/framework/views/
+server/storage/logs/
+server/storage/app/public/notifications/
+server/public/storage
+
+# Local tools and backups
+*.zip
+*_backup_*/
+DELETE_THESE_FILES.txt
+
+# IDE / OS
+.vs/
+.vscode/
+*.user
+*.suo
+Thumbs.db
+Desktop.ini
+server/storage/framework/compiled_views/
+**/*_backup_*/
+**/backup_*/
+*.bak
+*.bak-*
