@@ -17,8 +17,6 @@ internal sealed class NotificationForm : Form
     private readonly FlowLayoutPanel _sidebarList;
     private readonly Button _acknowledgeButton;
     private readonly Label _footerHint;
-    private readonly Label _sidebarProgressLabel;
-    private readonly ProgressBar _sidebarProgress;
     private readonly HashSet<long> _readNotifications = [];
     private readonly List<Panel> _notificationCards = [];
     private readonly List<int> _sidebarNotificationIndices = [];
@@ -156,12 +154,8 @@ internal sealed class NotificationForm : Form
         _footerHint = footerHint;
 
         _sidebarList = new FlowLayoutPanel { Dock = DockStyle.Fill, FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = true, Padding = new Padding(16, 12, 16, 12), BackColor = Color.White };
-        _sidebarList.Controls.Add(new Label { AutoSize = false, Width = 244, Height = 34, Text = "\\u0e23\\u0e32\\u0e22\\u0e01\\u0e32\\u0e23\\u0e1b\\u0e23\\u0e30\\u0e01\\u0e32\\u0e28", ForeColor = Ink, Font = new Font("Segoe UI", 16, FontStyle.Bold), Padding = new Padding(4, 0, 0, 0) });
-        _sidebarList.Controls.Add(new Label { AutoSize = false, Width = 244, Height = 32, Text = "\\u0e01\\u0e23\\u0e38\\u0e13\\u0e32\\u0e2d\\u0e48\\u0e32\\u0e19\\u0e1b\\u0e23\\u0e30\\u0e01\\u0e32\\u0e28\\u0e17\\u0e31\\u0e49\\u0e07\\u0e2b\\u0e21\\u0e14\\u0e01\\u0e48\\u0e2d\\u0e19\\u0e1b\\u0e34\\u0e14\\u0e23\\u0e30\\u0e1a\\u0e1a", ForeColor = MutedInk, Font = new Font("Segoe UI", 9.5f), Padding = new Padding(4, 0, 0, 0) });
-        _sidebarProgressLabel = new Label { AutoSize = false, Width = 244, Height = 28, Text = $"\\u0e2d\\u0e48\\u0e32\\u0e19\\u0e41\\u0e25\\u0e49\\u0e27 0 \\u0e08\\u0e32\\u0e01 {notifications.Count}", ForeColor = Ink, Font = new Font("Segoe UI", 10, FontStyle.Bold), Padding = new Padding(4, 8, 0, 0) };
-        _sidebarList.Controls.Add(_sidebarProgressLabel);
-        _sidebarProgress = new ProgressBar { Width = 244, Height = 10, Maximum = Math.Max(1, notifications.Count), Value = 0, Style = ProgressBarStyle.Continuous, Margin = new Padding(4, 0, 4, 12) };
-        _sidebarList.Controls.Add(_sidebarProgress);
+        _sidebarList.Controls.Add(new Label { AutoSize = false, Width = 244, Height = 34, Text = "รายการประกาศ", ForeColor = Ink, Font = new Font("Segoe UI", 16, FontStyle.Bold), Padding = new Padding(4, 0, 0, 0) });
+        _sidebarList.Controls.Add(new Label { AutoSize = false, Width = 244, Height = 32, Text = "กรุณาอ่านประกาศทั้งหมดก่อนปิดระบบ", ForeColor = MutedInk, Font = new Font("Segoe UI", 9.5f), Padding = new Padding(4, 0, 0, 0) });
         var recentCutoff = DateTimeOffset.Now.AddDays(-7);
         foreach (var (notification, index) in notifications.Select((n, i) => (n, i)).Where(x => !x.n.StartAt.HasValue || x.n.StartAt.Value >= recentCutoff || x.n.WasOpened).OrderByDescending(x => x.n.StartAt ?? DateTimeOffset.MinValue))
         {
@@ -208,7 +202,7 @@ internal sealed class NotificationForm : Form
         {
             Dock = DockStyle.Top,
             Height = 34,
-            Text = "CorpNotify   |   \\u0e2a\\u0e37\\u0e48\\u0e2d\\u0e2a\\u0e32\\u0e23\\u0e2a\\u0e33\\u0e04\\u0e31\\u0e0d \\u0e40\\u0e1e\\u0e37\\u0e48\\u0e2d\\u0e2d\\u0e07\\u0e04\\u0e4c\\u0e01\\u0e23\\u0e02\\u0e2d\\u0e07\\u0e40\\u0e23\\u0e32",
+            Text = "CorpNotify   |   สื่อสารสำคัญ เพื่อองค์กรของเรา",
             ForeColor = Color.White,
             Font = new Font("Segoe UI", 17, FontStyle.Bold)
         };
