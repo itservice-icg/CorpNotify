@@ -17,6 +17,8 @@ internal sealed class NotificationForm : Form
     private readonly FlowLayoutPanel _sidebarList;
     private readonly Button _acknowledgeButton;
     private readonly Label _footerHint;
+    private readonly Label _sidebarProgressLabel;
+    private readonly ProgressBar _sidebarProgress;
     private readonly HashSet<long> _readNotifications = [];
     private readonly List<Panel> _notificationCards = [];
     private readonly List<int> _sidebarNotificationIndices = [];
@@ -154,6 +156,12 @@ internal sealed class NotificationForm : Form
         _footerHint = footerHint;
 
         _sidebarList = new FlowLayoutPanel { Dock = DockStyle.Fill, FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = true, Padding = new Padding(16, 12, 16, 12), BackColor = Color.White };
+        _sidebarList.Controls.Add(new Label { AutoSize = false, Width = 244, Height = 34, Text = "รายการประกาศ", ForeColor = Ink, Font = new Font("Segoe UI", 16, FontStyle.Bold), Padding = new Padding(4, 0, 0, 0) });
+        _sidebarList.Controls.Add(new Label { AutoSize = false, Width = 244, Height = 32, Text = "กรุณาอ่านประกาศทั้งหมดก่อนปิดระบบ", ForeColor = MutedInk, Font = new Font("Segoe UI", 9.5f), Padding = new Padding(4, 0, 0, 0) });
+        _sidebarProgressLabel = new Label { AutoSize = false, Width = 244, Height = 28, Text = $"อ่านแล้ว 0 จาก {notifications.Count}", ForeColor = Ink, Font = new Font("Segoe UI", 10, FontStyle.Bold), Padding = new Padding(4, 8, 0, 0) };
+        _sidebarList.Controls.Add(_sidebarProgressLabel);
+        _sidebarProgress = new ProgressBar { Width = 244, Height = 10, Maximum = Math.Max(1, notifications.Count), Value = 0, Style = ProgressBarStyle.Continuous, Margin = new Padding(4, 0, 4, 12) };
+        _sidebarList.Controls.Add(_sidebarProgress);
         var recentCutoff = DateTimeOffset.Now.AddDays(-7);
         foreach (var (notification, index) in notifications.Select((n, i) => (n, i)).Where(x => !x.n.StartAt.HasValue || x.n.StartAt.Value >= recentCutoff || x.n.WasOpened).OrderByDescending(x => x.n.StartAt ?? DateTimeOffset.MinValue))
         {
@@ -200,7 +208,7 @@ internal sealed class NotificationForm : Form
         {
             Dock = DockStyle.Top,
             Height = 34,
-            Text = "CorpNotify",
+            Text = "CorpNotify   |   สื่อสารสำคัญ เพื่อองค์กรของเรา",
             ForeColor = Color.White,
             Font = new Font("Segoe UI", 17, FontStyle.Bold)
         };
@@ -506,6 +514,7 @@ internal sealed class NotificationForm : Form
         _ => "INFO"
     };
 }
+
 
 
 
